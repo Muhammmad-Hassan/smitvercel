@@ -1,51 +1,72 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
+const PORT = 5000;
 
-const users = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "johndoe@example.com",
-      role: "Admin",
-      isActive: true
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "janesmith@example.com",
-      role: "User",
-      isActive: true
-    },
-    {
-      id: 3,
-      name: "Sam Wilson",
-      email: "samwilson@example.com",
-      role: "Moderator",
-      isActive: false
-    },
-    {
-      id: 4,
-      name: "Alice Johnson",
-      email: "alicejohnson@example.com",
-      role: "User",
-      isActive: true
-    },
-    {
-      id: 5,
-      name: "Bob Brown",
-      email: "bobbrown@example.com",
-      role: "Admin",
-      isActive: false
-    }
-  ];
-  
-app.get("/", (req, res) => {
-    res.status(200).json(" Hello from bakend ");
-});
-app.get("/api/users", (req, res) => {
-    res.status(200).json(users);
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Sample data array
+let items = [
+  { id: 1, name: "Hassan Khan", description: "studying in 12th class" },
+  { id: 2, name: "Khalid Khan", description: "studying in 11th class" },
+];
+
+// CRUD routes
+
+// Get all items
+app.get("/api/items", (req, res) => {
+  res.json(items);
 });
 
-app.listen(5000, () => {
-    console.log("Server is running on port 5000");
+// Get item by id
+app.get("/api/items/:id", (req, res) => {
+  const item = items.find(i => i.id === parseInt(req.params.id));
+  if (item) {
+    res.json(item);
+  } else {
+    res.status(404).json({ message: "Item not found" });
+  }
+});
+
+// Create new 
+
+app.post("/api/items", (req, res) => {
+  const newItem = {
+    id: items.length + 1,
+    name: req.body.name,
+    description: req.body.description,
+  };
+  items.push(newItem);
+  res.json(newItem);
+});
+
+// Update item
+app.put("/api/items/:id", (req, res) => {
+  const item = items.find(i => i.id === parseInt(req.params.id));
+  console.log(item)
+  if (item) {
+    item.name = req.body.name || item.name;
+    item.description = req.body.description || item.description;
+    res.json(item);
+  } else {
+    res.status(404).json({ message: "Item not found" });
+  }
+});
+
+// Delete item
+app.delete("/api/items/:id", (req, res) => {
+  const index = items.findIndex(i => i.id === parseInt(req.params.id));
+  if (index !== -1) {
+    items.splice(index, 1);
+    res.json({ message: "Item deleted" });
+  } else {
+    res.status(404).json({ message: "Item not found" });
+  }
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
