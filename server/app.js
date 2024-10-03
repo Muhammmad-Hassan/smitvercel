@@ -7,6 +7,15 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
+// {
+//   origin: [process.env.FRONT_URL],
+//   methods: ["POST", "GET"],
+//   credentials: true
+// }
+
+const FRONT_URL = "https://front-api-two.vercel.app";
+
+
 // Sample data array
 let items = [
   { id: 1, name: "Hassan Khan", description: "studying in 12th class" },
@@ -14,7 +23,9 @@ let items = [
 ];
 
 // CRUD routes
-
+app.get("/", (req, res) => {
+  res.json("Hello from server");
+})
 // Get all items
 app.get("/api/items", (req, res) => {
   res.json(items);
