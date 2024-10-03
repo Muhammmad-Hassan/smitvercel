@@ -4,11 +4,11 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-const fronUrl = ""
+const fronUrl = "https://front-api-two.vercel.app"; 
 app.use(cors(
   {
-  origin: ["https://vercel.com/hassans-projects-27a00b78/smitvercelserver"],
-  methods: ["POST", "GET" ],
+  origin: fronUrl,
+  methods: ["POST", "GET", "PUT", "DELETE"],
   credentials: true
 }
 ));
