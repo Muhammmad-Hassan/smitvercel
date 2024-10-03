@@ -4,10 +4,10 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-const fronUrl = "https://vercel.com/hassans-projects-27a00b78/smitvercelserver"
+const fronUrl = ""
 app.use(cors(
   {
-  origin: [fronUrl],
+  origin: ["https://vercel.com/hassans-projects-27a00b78/smitvercelserver"],
   methods: ["POST", "GET" ],
   credentials: true
 }
