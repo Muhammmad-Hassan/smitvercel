@@ -4,13 +4,15 @@ import axios from "axios";
 import { Button, TextField, Box, Typography } from "@mui/material";
 
 const ItemForm = () => {
+  const apiurl  = "https://smitvercelserver.vercel.app"
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "", description: "" });
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:5000/api/items/${id}`)
+      axios.get(`${apiurl}/api/items/${id}`)
         .then((res) => setFormData(res.data))
         .catch((err) => console.error(err));
     }
@@ -19,11 +21,11 @@ const ItemForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (id) {
-      axios.put(`http://localhost:5000/api/items/${id}`, formData)
+      axios.put(`${apiurl}/api/items/${id}`, formData)
         .then(() => navigate("/"))
         .catch((err) => console.error(err));
     } else {
-      axios.post("http://localhost:5000/api/items", formData)
+      axios.post(`${apiurl}/api/items`, formData)
         .then(() => navigate("/"))
         .catch((err) => console.error(err));
     }

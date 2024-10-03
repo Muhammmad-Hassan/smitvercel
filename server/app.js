@@ -4,7 +4,14 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-app.use(cors());
+const fronUrl = "https://vercel.com/hassans-projects-27a00b78/smitvercelserver"
+app.use(cors(
+  {
+  origin: [fronUrl],
+  methods: ["POST", "GET" ],
+  credentials: true
+}
+));
 app.use(express.json());
 
 // {
