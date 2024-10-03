@@ -4,7 +4,7 @@ const app = express();
 const PORT = 5000;
 
 // Middleware
-const fronUrl = "https://front-api-two.vercel.app"; 
+const fronUrl = "https://smitvercelclient.vercel.app"; 
 app.use(cors(
   {
   origin: fronUrl,
@@ -14,13 +14,7 @@ app.use(cors(
 ));
 app.use(express.json());
 
-// {
-//   origin: [process.env.FRONT_URL],
-//   methods: ["POST", "GET"],
-//   credentials: true
-// }
 
-const FRONT_URL = "https://front-api-two.vercel.app";
 
 
 // Sample data array
